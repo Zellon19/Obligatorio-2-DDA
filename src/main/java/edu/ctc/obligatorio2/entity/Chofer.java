@@ -32,6 +32,7 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
+	@OneToMany(mappedBy = "turnos")
 	private ArrayList<Turno> listaTurnos = new ArrayList<Turno>();
 	
 	public int getId() {
@@ -69,7 +70,6 @@ public class Chofer {
 		this.cedula = cedula;
 	}
 	
-	@OneToMany(mappedBy = "turnos")
 	public ArrayList<Turno> getListaTurnos(){
 		return listaTurnos;
 	}
