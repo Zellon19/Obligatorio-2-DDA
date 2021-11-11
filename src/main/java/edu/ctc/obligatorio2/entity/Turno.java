@@ -1,10 +1,19 @@
 package edu.ctc.obligatorio2.entity;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "turnos")
 public class Turno {
 	
 	@Id
@@ -14,11 +23,16 @@ public class Turno {
 	@Column (length=50)
 	private String tipo;
 	
-	//Falta esto
+	@ManyToOne
+	@JoinColumn(name = "idChofer")
 	private Chofer chofer;
 	
-	//Falta esto
+	@ManyToOne
+	@JoinColumn(name = "idCoche")
 	private Coche coche;
+	
+	@OneToMany(mappedBy = "viajes")
+	private ArrayList<Viaje> listaViajes;
 	
 	public int getId() {
 		return id;

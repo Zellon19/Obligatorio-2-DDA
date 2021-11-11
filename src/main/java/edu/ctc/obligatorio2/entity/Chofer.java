@@ -1,14 +1,18 @@
 package edu.ctc.obligatorio2.entity;
 
+
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
-@Table (name = "Choferes")
+@Table (name = "choferes")
 public class Chofer {
 	
 	
@@ -27,6 +31,8 @@ public class Chofer {
 	
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
+	
+	private ArrayList<Turno> listaTurnos = new ArrayList<Turno>();
 	
 	public int getId() {
 		return id;
@@ -61,6 +67,11 @@ public class Chofer {
 	}
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
+	}
+	
+	@OneToMany(mappedBy = "turnos")
+	public ArrayList<Turno> getListaTurnos(){
+		return listaTurnos;
 	}
 	
 	public Chofer(int id, String nombre, String apellido, String telefono, String cedula) {
