@@ -1,24 +1,18 @@
 package edu.ctc.obligatorio2.entity;
-
+import edu.ctc.obligatorio2.entity.Turno;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
 @Table (name = "choferes")
 public class Chofer {
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column (length=50)
 	private String nombre;
@@ -32,13 +26,13 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
-	@OneToMany(mappedBy = "turnos")
-	private ArrayList<Turno> listaTurnos = new ArrayList<Turno>();
+	@OneToMany(cascade = CascadeType.REMOVE)
+	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -70,11 +64,11 @@ public class Chofer {
 		this.cedula = cedula;
 	}
 	
-	public ArrayList<Turno> getListaTurnos(){
+	public List<Turno> getListaTurnos(){
 		return listaTurnos;
 	}
 	
-	public Chofer(int id, String nombre, String apellido, String telefono, String cedula) {
+	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula) {
 		super();
 		this.id = id;
 		this.nombre = nombre;

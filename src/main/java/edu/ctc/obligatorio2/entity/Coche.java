@@ -1,6 +1,6 @@
 package edu.ctc.obligatorio2.entity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,8 +21,8 @@ public class Coche {
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
 	
-	@OneToMany(mappedBy = "turnos")
-	private ArrayList<Turno> listaTurnos;
+	@OneToMany
+	private List<Turno> listaTurnos;
 	
 	public int getId() {
 		return id;
