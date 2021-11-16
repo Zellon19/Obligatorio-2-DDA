@@ -16,7 +16,7 @@ public class Coche {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
@@ -24,10 +24,10 @@ public class Coche {
 	@OneToMany
 	private List<Turno> listaTurnos;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

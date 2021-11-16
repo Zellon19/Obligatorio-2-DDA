@@ -17,7 +17,7 @@ public class Viaje {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 	@Column (length=100)
 	private String direccion;
@@ -35,10 +35,10 @@ public class Viaje {
 	@JoinColumn(name = "turnos")
 	private Turno turno;
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
