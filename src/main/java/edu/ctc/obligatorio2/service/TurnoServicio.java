@@ -5,10 +5,12 @@ import edu.ctc.obligatorio2.exception.TurnoNotFoundException;
 import edu.ctc.obligatorio2.repository.TurnoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class TurnoServicio {
     private final TurnoRepo turnoRepo;
 

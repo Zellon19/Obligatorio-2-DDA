@@ -39,6 +39,7 @@ public class ChoferController {
     @PutMapping("/update")
     public ResponseEntity<Chofer> updateChofer(@RequestBody Chofer chofer){
         Chofer updateChofer = choferServicio.updateChofer(chofer);
+        System.out.println(chofer);
         return new ResponseEntity<>(updateChofer, HttpStatus.OK);
     }
 

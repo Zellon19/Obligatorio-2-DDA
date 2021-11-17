@@ -2,19 +2,12 @@ package edu.ctc.obligatorio2.entity;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "coches")
 @Inheritance(strategy=InheritanceType.JOINED)
-@Table(name="coches")
+
 public class Coche {
 	
 	@Id
@@ -23,7 +16,18 @@ public class Coche {
 	
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
-	
+
+	@Column(nullable = false)
+	private TipoCoche tipoCoche;
+
+	public TipoCoche getTipoCoche() {
+		return tipoCoche;
+	}
+
+	public void setTipoCoche(TipoCoche tipoCoche) {
+		this.tipoCoche = tipoCoche;
+	}
+
 	@OneToMany
 	private List<Turno> listaTurnos;
 	
@@ -43,8 +47,16 @@ public class Coche {
 	
 	@Override
 	public String toString() {
-		return id + " " + matricula;
+		return id + " " + matricula + ""+ tipoCoche;
 	}
-	
+
+	public Coche() {
+	}
+
+	public Coche(Long id, String matricula, TipoCoche tipoCoche) {
+		this.id = id;
+		this.matricula = matricula;
+		this.tipoCoche = tipoCoche;
+	}
 
 }

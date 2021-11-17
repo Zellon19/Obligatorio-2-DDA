@@ -25,6 +25,9 @@ public class Chofer {
 	
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
+
+	@Column(nullable = false)
+	private TipoChofer tipoChofer;
 	
 	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
@@ -63,20 +66,35 @@ public class Chofer {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
-	
+
+	public TipoChofer getTipoChofer() {
+		return tipoChofer;
+	}
+
+	public void setTipoChofer(TipoChofer tipoChofer) {
+		this.tipoChofer = tipoChofer;
+	}
+
 	public List<Turno> getListaTurnos(){
 		return listaTurnos;
 	}
-	
-	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula) {
-		super();
+
+	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula, TipoChofer tipoChofer) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.cedula = cedula;
+		this.tipoChofer = tipoChofer;
 	}
 	
 	public Chofer(){}
 
+	@Override
+	public String toString() {
+		return id + " " + nombre + " " + apellido +
+				" " + telefono +
+				" " + cedula +
+				"" + tipoChofer;
+	}
 }
