@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/turno")
+ @RequestMapping("/turno")
 public class TurnoController {
     private final TurnoServicio turnoServicio;
 
@@ -37,7 +37,7 @@ public class TurnoController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Turno> updateCoche(@RequestBody Turno pTurno){
+    public ResponseEntity<Turno> updateTurno(@RequestBody Turno pTurno){
     	Turno turno = turnoServicio.updateTurno(pTurno);
         return new ResponseEntity<>(turno, HttpStatus.OK);
     }
