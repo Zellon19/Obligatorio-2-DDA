@@ -2,10 +2,12 @@ package edu.ctc.obligatorio2.controller;
 
 import edu.ctc.obligatorio2.entity.Chofer;
 import edu.ctc.obligatorio2.service.ChoferServicio;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/chofer")
@@ -36,12 +38,24 @@ public class ChoferController {
         return new ResponseEntity<>(newChofer, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Chofer> updateChofer(@RequestBody Chofer chofer){
-        Chofer updateChofer = choferServicio.updateChofer(chofer);
-        System.out.println(chofer);
-        return new ResponseEntity<>(updateChofer, HttpStatus.OK);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Chofer> updateChofer(@RequestBody Chofer chofer){
+//        Chofer updateChofer = choferServicio.updateChofer(chofer);
+//        return new ResponseEntity<>(updateChofer, HttpStatus.OK);
+//    }
+    
+    @PutMapping ("/{id}")
+	public ResponseEntity <Chofer> updateChofer (@RequestBody Chofer pChofer, 
+			@PathVariable(value = "id") Long id) throws Exception{
+			Chofer chofer = choferServicio.findChoferById(id);
+		
+		chofer.setNombre(pChofer.getNombre());
+		chofer.setApellido(pChofer.getApellido());
+		//chofer.setTelefono(pChofer.getTelefono());
+		//chofer.setCedula(pChofer.getCedula());
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(choferServicio.updateChofer(chofer));
+	}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteChofer(@PathVariable("id") Long id){
