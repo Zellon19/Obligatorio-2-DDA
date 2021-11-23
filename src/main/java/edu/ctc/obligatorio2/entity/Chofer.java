@@ -26,7 +26,7 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
-	@OneToMany(cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.REMOVE)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
 	public Long getId() {

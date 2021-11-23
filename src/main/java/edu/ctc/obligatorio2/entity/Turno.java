@@ -2,7 +2,16 @@ package edu.ctc.obligatorio2.entity;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.JoinTable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
+import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name = "turnos")
@@ -15,16 +24,15 @@ public class Turno {
 	@Column (length=50)
 	private String tipo;
 	
-	@ManyToOne
-	@JoinColumn(name = "idChofer")
-	private Chofer chofer;
-	
-	@ManyToOne
-	@JoinColumn(name = "idCoche")
-	private Coche coche;
-	
 	@OneToMany
 	private List<Viaje> listaViajes;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "chofer_turno",
+			joinColumns = @JoinColumn(name = "chofer_id"),
+			inverseJoinColumns = @JoinColumn(name = "id"))
+	private List<Chofer> listaChoferesEnElTurno;
 	
 	public Long getId() {
 		return id;
@@ -40,22 +48,5 @@ public class Turno {
 		this.tipo = tipo;
 	
 	}
-	
-	public Chofer getChofer() {
-		return chofer;
-	}
-	public void setChofer(Chofer chofer) {
-		this.chofer = chofer;
-	
-	}
-	
-	public Coche getCoche() {
-		return coche;
-	}
-	public void setCoche(Coche coche) {
-		this.coche = coche;
-	}
-	
-	
 
 }
