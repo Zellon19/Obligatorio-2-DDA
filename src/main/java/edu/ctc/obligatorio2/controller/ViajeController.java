@@ -1,5 +1,6 @@
 package edu.ctc.obligatorio2.controller;
 
+import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Viaje;
 import edu.ctc.obligatorio2.service.ViajeServicio;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,19 @@ public class ViajeController {
 	public ResponseEntity<Viaje> updateViaje(@RequestBody Viaje pViaje){
 		Viaje viaje = viajeServicio.updateViaje(pViaje);
 		return new ResponseEntity<>(viaje, HttpStatus.OK);
+	}
+	
+	@PutMapping ("/{id}")
+	public ResponseEntity <Viaje> updateViaje (@RequestBody Viaje pViaje, 
+			@PathVariable(value = "id") Long id) throws Exception{
+    		Viaje viaje = viajeServicio.findViajeById(id);
+		
+		viaje.setDireccion(pViaje.getDireccion());
+		viaje.setfechaHora(pViaje.getFechaHora());
+		viaje.setKmRecorridos(pViaje.getKmRecorridos());
+		viaje.setPrecio(pViaje.getPrecio());
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(viajeServicio.updateViaje(viaje));
 	}
 	
 	//elimina un viaje

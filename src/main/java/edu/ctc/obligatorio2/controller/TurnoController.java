@@ -1,5 +1,6 @@
 package edu.ctc.obligatorio2.controller;
 
+import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.service.TurnoServicio;
 import org.springframework.http.HttpStatus;
@@ -35,12 +36,16 @@ public class TurnoController {
     	Turno turno = turnoServicio.addTurno(pTurno);
         return new ResponseEntity<>(turno, HttpStatus.CREATED);
     }
-
-    @PutMapping("/update")
-    public ResponseEntity<Turno> updateTurno(@RequestBody Turno pTurno){
-    	Turno turno = turnoServicio.updateTurno(pTurno);
-        return new ResponseEntity<>(turno, HttpStatus.OK);
-    }
+    
+    @PutMapping ("/{id}")
+	public ResponseEntity <Turno> updateTurno (@RequestBody Turno pTurno, 
+			@PathVariable(value = "id") Long id) throws Exception{
+    		Turno turno = turnoServicio.findTurnoById(id);
+		
+		turno.setTipo(pTurno.getTipo());
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(turnoServicio.updateTurno(turno));
+	}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteTurno(@PathVariable("id") Long id){

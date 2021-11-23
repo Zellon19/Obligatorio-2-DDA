@@ -1,5 +1,6 @@
 package edu.ctc.obligatorio2.controller;
 
+import edu.ctc.obligatorio2.entity.Chofer;
 import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.service.CocheServicio;
 import org.springframework.http.HttpStatus;
@@ -35,12 +36,16 @@ public class CocheController {
     	Coche coche = cocheServicio.addCoche(pCoche);
         return new ResponseEntity<>(coche, HttpStatus.CREATED);
     }
-
-    @PutMapping("/update")
-    public ResponseEntity<Coche> updateCoche(@RequestBody Coche pCoche){
-    	Coche coche = cocheServicio.updateCoche(pCoche);
-        return new ResponseEntity<>(coche, HttpStatus.OK);
-    }
+    
+    @PutMapping ("/{id}")
+	public ResponseEntity <Coche> updateCoche (@RequestBody Coche pCoche, 
+			@PathVariable(value = "id") Long id) throws Exception{
+    		Coche coche = cocheServicio.findCocheById(id);
+		
+		coche.setMatricula(pCoche.getMatricula());
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(cocheServicio.updateCoche(coche));
+	}
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCoche(@PathVariable("id") Long id){
