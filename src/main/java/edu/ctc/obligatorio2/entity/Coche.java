@@ -17,17 +17,6 @@ public class Coche {
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
 
-	@Column(nullable = false)
-	private TipoCoche tipoCoche;
-
-	public TipoCoche getTipoCoche() {
-		return tipoCoche;
-	}
-
-	public void setTipoCoche(TipoCoche tipoCoche) {
-		this.tipoCoche = tipoCoche;
-	}
-
 	@OneToMany
 	private List<Turno> listaTurnos;
 	
@@ -47,16 +36,15 @@ public class Coche {
 	
 	@Override
 	public String toString() {
-		return id + " " + matricula + ""+ tipoCoche;
+		return id + " " + matricula;
 	}
 
 	public Coche() {
 	}
 
-	public Coche(Long id, String matricula, TipoCoche tipoCoche) {
+	public Coche(Long id, String matricula) {
 		this.id = id;
 		this.matricula = matricula;
-		this.tipoCoche = tipoCoche;
 	}
 
 }
