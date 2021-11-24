@@ -34,6 +34,22 @@ public class Turno {
 			inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<Chofer> listaChoferesEnElTurno;
 	
+	@ManyToMany
+	@JoinTable(
+			name = "coche_turno",
+			joinColumns = @JoinColumn(name = "coche_id"),
+			inverseJoinColumns = @JoinColumn(name = "id"))
+	private List<Coche> listaCochesEnElTurno;
+	
+	
+	public List<Chofer> getListaChoferes(){
+		return listaChoferesEnElTurno;
+	}
+	
+	public List<Coche> getListaCoches(){
+		return listaCochesEnElTurno;
+	}
+	
 	public Long getId() {
 		return id;
 	}

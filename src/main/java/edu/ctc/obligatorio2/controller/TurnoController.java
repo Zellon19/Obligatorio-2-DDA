@@ -52,4 +52,11 @@ public class TurnoController {
         turnoServicio.deleteTurno(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    
+    //Consulta 1
+    public List<Coche> cochesParaUnTurno(Long id){
+		ResponseEntity<Turno> turno = getTurnoById(id);
+		return turno.getBody().getListaCoches();
+	}
 }

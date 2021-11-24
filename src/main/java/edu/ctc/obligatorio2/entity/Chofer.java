@@ -29,6 +29,9 @@ public class Chofer {
 	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.REMOVE)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
+	@OneToMany
+	private List<Viaje> viajes;
+	
 	public Long getId() {
 		return id;
 	}

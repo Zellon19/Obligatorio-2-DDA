@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +31,15 @@ public class Viaje {
 	
 	@Column
 	private float precio;
+	
+	@ManyToOne
+	@JoinColumn(name = "choferes")
+	private Chofer chofer;
+	
+	@ManyToOne
+	@JoinColumn(name = "coches")
+	private Coche coche;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "turnos")
@@ -76,6 +86,22 @@ public class Viaje {
 	public void setTurno(Turno turno) {
 		this.turno = turno;
 	}
+	
+	public Chofer getChofer() {
+		return chofer;
+	}
+	public void setChofer(Chofer chofer) {
+		this.chofer = chofer;
+	}
+	
+	public Coche getCoche() {
+		return coche;
+	}
+	public void setCoche(Coche coche) {
+		this.coche = coche;
+	}
+	
+	
 	
 	
 }
