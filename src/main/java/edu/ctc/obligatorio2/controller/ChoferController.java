@@ -1,29 +1,60 @@
 package edu.ctc.obligatorio2.controller;
 
 import edu.ctc.obligatorio2.entity.Chofer;
+import edu.ctc.obligatorio2.repository.ChoferRepo;
 import edu.ctc.obligatorio2.service.ChoferServicio;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/chofer")
+import java.util.List;
+
+
+@Controller
+
 public class ChoferController {
     private final ChoferServicio choferServicio;
+    @Autowired
+    private ChoferRepo choferRepo;
 
     public ChoferController(ChoferServicio choferServicio) {
         this.choferServicio = choferServicio;
     }
 
-    //devuelve el http response con todos los choferes
-    @GetMapping("/todos")
-    public ResponseEntity<List<Chofer>> getAllChoferes(){
-        List<Chofer> choferes = choferServicio.findAllChoferes();
-        return new ResponseEntity<>(choferes, HttpStatus.OK);
+    @GetMapping({ "/", "" })
+    public String verPaginaDeInicio(Model modelo) {
+        List<Chofer> choferes = choferRepo.findAll();
+        modelo.addAttribute("choferes", choferes);
+        return "index.html";
     }
+
+    @GetMapping("/nuevo")
+    public String mostrarFormularioDeRegistrarChofer(Model modelo) {
+        modelo.addAttribute("chofer", new Chofer());
+        return "nuevo";
+    }
+
+    @PostMapping("/nuevo")
+    public String guardarChofer(@Validated Chofer chofer, BindingResult bindingResult, RedirectAttributes redirect, Model modelo) {
+        if (bindingResult.hasErrors()) {
+            modelo.addAttribute("chofer", chofer);
+            return "nuevo";
+        }
+
+        choferRepo.save(chofer);
+        redirect.addFlashAttribute("msgExito", "El chofer ha sido agregado con exito");
+        return "redirect:/";
+    }
+
+
+
 
     //le pasamos el id a la request
     @GetMapping("/find/{id}")
@@ -37,6 +68,10 @@ public class ChoferController {
         Chofer newChofer = choferServicio.addChofer(chofer);
         return new ResponseEntity<>(newChofer, HttpStatus.CREATED);
     }
+
+
+
+
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Chofer> updateChofer(@RequestBody Chofer chofer){
