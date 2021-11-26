@@ -15,6 +15,9 @@
 
 <!--    Estilo hard-coded-->
     <style>
+    a:link {
+  text-decoration: none;
+        }
         .jumbotron-image {
             background-position: center center;
             background-repeat: no-repeat;
@@ -37,7 +40,7 @@
         font-size: 20px;
         }
 
-        //cards
+        //cards/////////////////////////////////////////////////////////
         body{
         margin-top:20px;
         background:#FAFAFA;
@@ -45,7 +48,7 @@
     .order-card {
         color: #fff;
     }
-
+        //CARDS BACKGROUNDS
     .bg-c-blue {
         background: linear-gradient(45deg,#4099ff,#73b4ff);
     }
@@ -62,7 +65,11 @@
         background: linear-gradient(45deg,#FF5370,#ff869a);
     }
 
+    .bg-c-purple{
+        background: linear-gradient(45deg,#3c2266,#7c6396);
+    }
 
+/////////////////////////////////////////////////////////7
     .card {
         border-radius: 5px;
         -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
@@ -89,7 +96,9 @@
         float: right;
     }
 
-
+    .cards-text{
+    color: white;
+    }
 
 
     </style>
@@ -130,10 +139,10 @@
     <div class="mt-4 container">
         <div class="row">
             <div class="col-md-4 col-xl-3">
-                <div class="card bg-c-blue order-card">
+                <div class="card bg-c-purple order-card">
                     <div class="card-block">
                     <a href="/choferes">
-                        <h3>Ver Choferes</h3>
+                        <h3 class="cards-text">Ver Choferes</h3>
                     </a>
                     </div>
                 </div>
@@ -143,7 +152,7 @@
                 <div class="card bg-c-green order-card">
                     <div class="card-block">
                         <a href="/coches">
-                            <h3>Ver Coches</h3>
+                            <h3 class="cards-text">Ver Coches</h3>
                         </a>
                     </div>
                 </div>
@@ -153,7 +162,7 @@
                 <div class="card bg-c-yellow order-card">
                     <div class="card-block">
                         <a href="">
-                        <h3>Ver Viajes</h3>
+                        <h3 class="cards-text">Ver Viajes</h3>
                             </a>
                     </div>
                 </div>
@@ -163,7 +172,7 @@
                 <div class="card bg-c-pink order-card">
                     <div class="card-block">
                         <a href="/consultas">
-                            <h3>Ver Consultas</h3>
+                            <h3 class="cards-text">Ver Consultas</h3>
                         </a>
                     </div>
                 </div>
