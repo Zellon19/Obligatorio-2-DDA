@@ -42,7 +42,7 @@ public class TurnoController {
     public String pagListaTurnos(Model modelo) {
     	List<Turno> turnos = turnoServicio.findAllTurnos();
     	modelo.addAttribute("turno", turnos);
-    	return "turnos.html";
+    	return "";
     }
 
     // agrega un turno
