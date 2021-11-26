@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Home </title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+
+
+<!--    Estilo hard-coded-->
+    <style>
+        .jumbotron-image {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image:
+            url(https://arumjournal.com/wp-content/uploads/2021/02/taxi-1.jpg);
+        }
+
+        .jumbotron{
+            top: 700px;
+            height: 300px;
+        }
+
+        .title{
+        color: white;
+        }
+
+        .text-info1{
+        color: white;
+        font-size: 20px;
+        }
+
+        //cards
+        body{
+        margin-top:20px;
+        background:#FAFAFA;
+    }
+    .order-card {
+        color: #fff;
+    }
+
+    .bg-c-blue {
+        background: linear-gradient(45deg,#4099ff,#73b4ff);
+    }
+
+    .bg-c-green {
+        background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    }
+
+    .bg-c-yellow {
+        background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    }
+
+    .bg-c-pink {
+        background: linear-gradient(45deg,#FF5370,#ff869a);
+    }
+
+
+    .card {
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+        box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+        border: none;
+        margin-bottom: 30px;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .card .card-block {
+        padding: 25px;
+    }
+
+    .order-card i {
+        font-size: 26px;
+    }
+
+    .f-left {
+        float: left;
+    }
+
+    .f-right {
+        float: right;
+    }
+
+
+
+
+    </style>
+
+
+    <!--  Nav bar-->
+    <div class="navbar navbar-expand-md navbar-dark bg-dark" role="navigation">
+        <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nuevo">Agregar Chofer <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</head>
+<body>
+
+    <div class="jumbotron jumbotron-image">
+
+        <h1 class="p-5 align-middle title"><span style="background-color: #120e0d">¡Inscríbete ahora!</span></h1>
+        <p class="px-5 text-info1">
+            <span style="background-color: #120e0d">
+            Gestionar tu empresa de taxis nunca fue tan fácil,<br>
+            con la nueva web de APS Taxis tienes todo a un click de distancia.
+        </span>
+        </p>
+    </div>
+
+    <div class="mt-4 container">
+        <div class="row">
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-blue order-card">
+                    <div class="card-block">
+                    <a href="/choferes">
+                        <h3>Ver Choferes</h3>
+                    </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-green order-card">
+                    <div class="card-block">
+                        <a href="/coches">
+                            <h3>Ver Coches</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-yellow order-card">
+                    <div class="card-block">
+                        <a href="">
+                        <h3>Ver Viajes</h3>
+                            </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3">
+                <div class="card bg-c-pink order-card">
+                    <div class="card-block">
+                        <a href="/consultas">
+                            <h3>Ver Consultas</h3>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</html>

@@ -1,6 +1,7 @@
 package edu.ctc.obligatorio2.controller;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -73,8 +74,9 @@ public class ViajeController {
 		viajeServicio.deleteViaje(pId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
-	
+
+
+	@RequestMapping("/consultas")
 	//Consulta 2
 	public List<Viaje> viajesPorChoferPorFecha(Chofer chofer, LocalDateTime fecha){
 		List<Viaje> todosLosViajes = (List<Viaje>) getAllViajes(); //cast

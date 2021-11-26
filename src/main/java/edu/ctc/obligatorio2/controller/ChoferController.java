@@ -18,21 +18,26 @@ import java.util.List;
 
 
 @Controller
-
 public class ChoferController {
     private final ChoferServicio choferServicio;
     @Autowired
-    private ChoferRepo choferRepo;
+    ChoferRepo choferRepo;
 
     public ChoferController(ChoferServicio choferServicio) {
         this.choferServicio = choferServicio;
     }
 
-    @GetMapping({ "/", "" })
-    public String verPaginaDeInicio(Model modelo) {
-        List<Chofer> choferes = choferRepo.findAll();
+    @GetMapping("/home")
+    public String mostrarHome() {
+        return "home";
+    }
+
+
+    @GetMapping({ "/choferes", "" })
+    public String pagListaChoferes(Model modelo) {
+        List<Chofer> choferes = choferServicio.findAllChoferes();
         modelo.addAttribute("choferes", choferes);
-        return "index.html";
+        return "choferes.html";
     }
 
     @GetMapping("/nuevo")
@@ -53,48 +58,39 @@ public class ChoferController {
         return "redirect:/";
     }
 
-
-
-
-    //le pasamos el id a la request
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Chofer> getChoferById(@PathVariable("id") Long id){
-        Chofer employee = choferServicio.findChoferById(id);
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+    @GetMapping("/{id}/editar")
+    public String editarChofer(@PathVariable Long id, Model modelo) {
+        Chofer chofer = choferRepo.getById(id);
+        modelo.addAttribute("chofer", chofer);
+        return "nuevo";
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Chofer> addChofer(@RequestBody Chofer chofer){
-        Chofer newChofer = choferServicio.addChofer(chofer);
-        return new ResponseEntity<>(newChofer, HttpStatus.CREATED);
+    @PostMapping("/{id}/editar")
+    public String actualizarContacto(@PathVariable Long id, @Validated Chofer chofer,
+                                     BindingResult bindingResult, RedirectAttributes redirect, Model modelo) {
+        Chofer choferDB = choferRepo.getById(id);
+        if (bindingResult.hasErrors()) {
+            modelo.addAttribute("chofer", chofer);
+            return "nuevo";
+        }
+
+        choferDB.setNombre(chofer.getNombre());
+        choferDB.setApellido(chofer.getApellido());
+        choferDB.setTelefono(chofer.getTelefono());
+        choferDB.setCedula(chofer.getCedula());
+
+        choferRepo.save(choferDB);
+        redirect.addFlashAttribute("msgExito", "El chofer ha sido actualizado correctamente");
+        return "redirect:/";
+    }
+
+    @PostMapping("/{id}/eliminar")
+    public String eliminarChofer(@PathVariable Long id, RedirectAttributes redirect) {
+        Chofer chofer= choferRepo.getById(id);
+        choferRepo.delete(chofer);
+        redirect.addFlashAttribute("msgExito", "El chofer ha sido eliminado correctamente");
+        return "redirect:/";
     }
 
 
-
-
-
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Chofer> updateChofer(@RequestBody Chofer chofer){
-//        Chofer updateChofer = choferServicio.updateChofer(chofer);
-//        return new ResponseEntity<>(updateChofer, HttpStatus.OK);
-//    }
-    
-    @PutMapping ("/{id}")
-	public ResponseEntity <Chofer> updateChofer (@RequestBody Chofer pChofer, 
-			@PathVariable(value = "id") Long id) throws Exception{
-			Chofer chofer = choferServicio.findChoferById(id);
-		
-		chofer.setNombre(pChofer.getNombre());
-		chofer.setApellido(pChofer.getApellido());
-		//chofer.setTelefono(pChofer.getTelefono());
-		//chofer.setCedula(pChofer.getCedula());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(choferServicio.updateChofer(chofer));
-	}
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteChofer(@PathVariable("id") Long id){
-        choferServicio.deleteChofer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

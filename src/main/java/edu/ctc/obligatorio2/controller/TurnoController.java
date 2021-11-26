@@ -17,7 +17,7 @@ public class TurnoController {
         this.turnoServicio = turnoServicio;
     }
 
-    //devuelve el http response con todos los choferes
+    //devuelve el http response con todos los turnos
     @GetMapping("/todos")
     public ResponseEntity<List<Turno>> getAllTurnos(){
         List<Turno> turnos = turnoServicio.findAllTurnos();
@@ -52,8 +52,14 @@ public class TurnoController {
         turnoServicio.deleteTurno(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
-    
+
+
+    //Consulta 1 Sofia
+    @GetMapping("consultas/{id}")
+    public ResponseEntity<?> cochesParaUnTurnow(@RequestParam Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(turnoServicio.cochesParaUnTurno(id));
+    }
+
     //Consulta 1
     public List<Coche> cochesParaUnTurno(Long id){
 		ResponseEntity<Turno> turno = getTurnoById(id);

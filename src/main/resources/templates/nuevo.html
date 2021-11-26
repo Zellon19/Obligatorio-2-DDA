@@ -10,11 +10,32 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+    <!--  Nav bar-->
+    <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
+        <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nuevo">Agregar Chofer <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
 </head>
 <body>
-<div>
-    <h3>[[${chofer.id ne null ? 'Editar chofer' : 'Registro de chofer'}]]</h3>
-    <form action="" method="post" th:object="${chofer}">
+<h3 class="text-center">[[${chofer.id ne null ? 'Editar chofer' : 'Registro de chofer'}]]</h3>
+<div class=" d-flex justify-content-center">
+
+    <form class="w-50 " action="" method="post" th:object="${chofer}">
         <div class="mb-3">
             <label for="nombre">Nombre : </label>
             <input id="nombre" type="text" placeholder="Digite su nombre " th:field="*{nombre}" class="form-control" th:errorClass="is-invalid">

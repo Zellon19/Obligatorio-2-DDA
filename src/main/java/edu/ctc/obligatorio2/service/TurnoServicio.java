@@ -1,9 +1,12 @@
 package edu.ctc.obligatorio2.service;
 
+import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.exception.TurnoNotFoundException;
 import edu.ctc.obligatorio2.repository.TurnoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +41,11 @@ public class TurnoServicio {
 
     public void deleteTurno(Long id){
         turnoRepo.deleteTurnoById(id);
+    }
+
+    //Consulta 1
+    public List<Coche> cochesParaUnTurno(Long id){
+        List<Coche> coches = turnoRepo.cochesParaUnTurno(id);
+        return coches;
     }
 }

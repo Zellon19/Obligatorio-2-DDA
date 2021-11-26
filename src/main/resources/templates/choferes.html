@@ -9,6 +9,26 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+<!--  Nav bar-->
+    <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
+        <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/nuevo">Agregar Chofer <span class="sr-only">(current)</span></a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
 </head>
 <body>
 
@@ -20,10 +40,7 @@
         <button type="button" class="btn btn-close" data-bs-dismiss="alert"></button>
     </div>
 
-    <h1>Lista de choferes</h1>
-    <div class="text-center my-3">
-        <a href="/nuevo" class="btn btn-primary"><i class="fas fa-user-plus"></i>&nbsp;Añadir chofer</a>
-    </div>
+    <h2>Lista de choferes</h2>
 
     <table class="table table-hover">
         <thead>
@@ -33,6 +50,7 @@
             <th>Apellido</th>
             <th>Teléfono</th>
             <th>Cédula</th>
+            <th><a class="btn btn-success" href="/nuevo"><i class="fas fa-user-plus"></i> Agregar Chofer</a></th>
 
         </tr>
         </thead>
