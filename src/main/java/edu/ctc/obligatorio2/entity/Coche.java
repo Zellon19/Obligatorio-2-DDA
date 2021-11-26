@@ -24,7 +24,6 @@ public class Coche {
 	@OneToMany
 	private List<Viaje> viajes;
 	
-	
 	public Long getId() {
 		return id;
 	}

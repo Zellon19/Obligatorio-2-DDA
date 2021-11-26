@@ -25,14 +25,14 @@ import edu.ctc.obligatorio2.entity.Viaje;
 import edu.ctc.obligatorio2.service.CocheServicio;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 @Controller
 @RequestMapping("/coches")
 public class CocheController {
     private final CocheServicio cocheServicio;
+    
+    @Autowired
     CocheRepo cocheRepo;
 
-    @Autowired
     public CocheController(CocheServicio cocheServicio) {
         this.cocheServicio = cocheServicio;
     }

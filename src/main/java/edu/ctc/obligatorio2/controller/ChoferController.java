@@ -19,6 +19,7 @@ import java.util.List;
 
 @Controller
 public class ChoferController {
+	
     private final ChoferServicio choferServicio;
     @Autowired
     ChoferRepo choferRepo;
@@ -52,7 +53,6 @@ public class ChoferController {
             modelo.addAttribute("chofer", chofer);
             return "nuevo";
         }
-
         choferRepo.save(chofer);
         redirect.addFlashAttribute("msgExito", "El chofer ha sido agregado con exito");
         return "redirect:/";
