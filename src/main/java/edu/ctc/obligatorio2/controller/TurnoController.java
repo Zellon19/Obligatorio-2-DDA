@@ -84,7 +84,12 @@ public class TurnoController {
     	redirect.addFlashAttribute("msgExito", "El turno ha sido actualizado con exito.");
     	return "redirect:/turnos";
     }
-
+    
+    @GetMapping("/find/{id}")
+    public ResponseEntity<Turno> getTurnoById(@PathVariable("id") Long id){
+    	Turno turno = turnoServicio.findTurnoById(id);
+        return new ResponseEntity<>(turno, HttpStatus.OK);
+    }
     //Consulta 1 Sofia
     @GetMapping("consultas/{id}")
     public ResponseEntity<?> cochesParaUnTurnow(@RequestParam Long id){
