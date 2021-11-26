@@ -1,5 +1,7 @@
 package edu.ctc.obligatorio2.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -26,6 +28,7 @@ public class Viaje {
 	private float kmRecorridos;
 	
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime fechaHora;
 	
 	@Column

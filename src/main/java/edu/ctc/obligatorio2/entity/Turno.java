@@ -65,4 +65,8 @@ public class Turno {
 	
 	}
 
+	@Override
+	public String toString() {
+		return id + tipo ;
+	}
 }

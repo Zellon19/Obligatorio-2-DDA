@@ -4,8 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.ctc.obligatorio2.repository.ViajeRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,16 +25,49 @@ import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.entity.Viaje;
 import edu.ctc.obligatorio2.service.ViajeServicio;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/viaje")
+@Controller
+@RequestMapping("/viajes")
 public class ViajeController {
+
+	@Autowired
+	ViajeRepo viajeRepo;
+
 	private final ViajeServicio viajeServicio;
-	
 	public ViajeController(ViajeServicio pViajeServ) {
 		this.viajeServicio = pViajeServ;
 	}
-	
+
+
+	@GetMapping({ "/", "" })
+	public String pagListaViajes(Model modelo) {
+		List<Viaje> viajes = viajeServicio.findAllViajes();
+		modelo.addAttribute("viajes", viajes);
+		return "viajes.html";
+	}
+
+	@GetMapping("/nuevoViaje")
+	public String mostrarFormularioDeRegistrarViaje(Model modelo) {
+		modelo.addAttribute("viaje", new Viaje());
+		return "nuevoViaje";
+	}
+
+	@PostMapping("/nuevoViaje")
+	public String guardarViaje(@Validated Viaje viaje, BindingResult bindingResult, RedirectAttributes redirect, Model modelo) {
+		if (bindingResult.hasErrors()) {
+			modelo.addAttribute("viaje", viaje);
+			return "nuevoViaje";
+		}
+
+		viajeRepo.save(viaje);
+		redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
+		return "redirect:/viajes";
+	}
+
+
+
+
 	//devuelve todos los viajes
 	@GetMapping("/todos")
 	public ResponseEntity<List<Viaje>> getAllViajes(){
@@ -49,26 +88,26 @@ public class ViajeController {
 		Viaje viaje = viajeServicio.addViaje(pViaje);
 		return new ResponseEntity<>(viaje, HttpStatus.CREATED);
 	}
-	
+
 	//modifica un viaje
 	public ResponseEntity<Viaje> updateViaje(@RequestBody Viaje pViaje){
 		Viaje viaje = viajeServicio.updateViaje(pViaje);
 		return new ResponseEntity<>(viaje, HttpStatus.OK);
 	}
-	
+
 	@PutMapping ("/{id}")
-	public ResponseEntity <Viaje> updateViaje (@RequestBody Viaje pViaje, 
+	public ResponseEntity <Viaje> updateViaje (@RequestBody Viaje pViaje,
 			@PathVariable(value = "id") Long id) throws Exception{
     		Viaje viaje = viajeServicio.findViajeById(id);
-		
+
 		viaje.setDireccion(pViaje.getDireccion());
 		viaje.setfechaHora(pViaje.getFechaHora());
 		viaje.setKmRecorridos(pViaje.getKmRecorridos());
 		viaje.setPrecio(pViaje.getPrecio());
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(viajeServicio.updateViaje(viaje));
 	}
-	
+
 	//elimina un viaje
 	public ResponseEntity<?> deleteViaje(@PathVariable("id") Long pId){
 		viajeServicio.deleteViaje(pId);
