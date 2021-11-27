@@ -39,27 +39,18 @@
     </div>
 
     <h2>Lista de Turnos</h2>
-
     <table class="table table-hover">
         <thead>
         <tr>
             <th>ID</th>
             <th>Matrícula</th>
-            <th><a class="btn btn-success" href="turnos/nuevoTurno"><i class="fas fa-user-plus"></i> Agregar Turno</a></th>
-
         </tr>
         </thead>
         <tbody>
         <tr th:each="turno: ${turnos}">
             <td th:text="${turno.id}"></td>
-            <td th:text="${turno.turno}"></td>
+            <td th:text="${turno.tipo}"></td>
 
-
-            <td><a th:href="@{turnos/{id}/editarTurno/(id=${turno.id})}" class="btn btn-warning"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-                <a href="#" onclick="eliminarTurno(this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
-
-                <form th:action="@{turnos/{id}/eliminar/(id=${turno.id})}"
-                      method="post"></form></td>
         </tr>
         </tbody>
     </table>

@@ -93,6 +93,13 @@ public class ViajeController {
 		return "redirect:/viajes";
 	}
 
+	@PostMapping("/{id}/eliminar")
+	public String eliminarViaje(@PathVariable Long id, RedirectAttributes redirect) {
+		Viaje viaje = viajeRepo.getById(id);
+		viajeRepo.delete(viaje);
+		redirect.addFlashAttribute("msgExito", "El viaje ha sido eliminado correctamente");
+		return "redirect:/viajes";
+	}
 
 
 	//devuelve todos los viajes
