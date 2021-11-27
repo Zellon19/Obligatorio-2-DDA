@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
     <!--  Nav bar-->
-    <div class="navbar navbar-expand-md navbar-dark bg-dark mb-4" role="navigation">
+    <div class="navbar navbar-expand-md navbar-dark bg-dark" role="navigation">
         <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,11 +22,60 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/nuevo">Agregar Chofer <span class="sr-only">(current)</span></a>
-                </li>
 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Choferes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/choferes">Ver Choferes</a></li>
+                        <li><a class="dropdown-item" href="/nuevo">Agregar Choferes</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Coches
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                        <li><a class="dropdown-item" href="/coches">Ver Coches</a></li>
+                        <li><a class="dropdown-item" href="coches/nuevoCoche">Agregar Coches</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Turnos
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                        <li><a class="dropdown-item" href="/turnos">Ver Turnos</a></li>
+                        <li><a class="dropdown-item" href="turnos/nuevoTurno">Agregar Turnos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Viajes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown4">
+                        <li><a class="dropdown-item" href="/viajes">Ver Viajes </a></li>
+                        <li><a class="dropdown-item" href="viajes/nuevoViaje">Agregar Viajes</a></li>
+                    </ul>
+                </li>
             </ul>
+            <ul class="navbar-nav ms-auto profile-menu">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown5">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sliders-h fa-fw"></i> Account</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog fa-fw"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+
+
         </div>
     </div>
 
@@ -62,7 +111,10 @@
             <label for="turno">Turno: </label>
             <input id="turno" type="text" placeholder="Digite el turno" th:field="*{turno.id}" class="form-control" th:errorClass="is-invalid">
         </div>
-
+        <div class="mb-3">
+            <label for="coche">Coche: </label>
+            <input id="coche" type="text" placeholder="Digite el coche" th:field="*{coche.id}" class="form-control" th:errorClass="is-invalid">
+        </div>
 
         <div class="text-end">
             <button class="btn btn-success"><i class="fas fa-save"></i>&nbsp;Guardar</button>

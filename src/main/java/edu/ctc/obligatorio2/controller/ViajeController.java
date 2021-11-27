@@ -87,6 +87,7 @@ public class ViajeController {
 		viajeDB.setPrecio(viaje.getPrecio());
 		viajeDB.setChofer(viaje.getChofer());
 		viajeDB.setTurno(viaje.getTurno());
+		viajeDB.setCoche(viaje.getCoche());
 
 		viajeRepo.save(viajeDB);
 		redirect.addFlashAttribute("msgExito", "El viaje ha sido actualizado correctamente");
