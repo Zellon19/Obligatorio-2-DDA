@@ -33,6 +33,7 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
+	
 	@Column (nullable = false)
 	private TipoChofer tipoChofer;
 	
