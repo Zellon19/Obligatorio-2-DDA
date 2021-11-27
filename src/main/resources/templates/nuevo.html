@@ -108,6 +108,13 @@
             <input id="cedula" type="text" placeholder="Digite su cédula" th:field="*{cedula}" class="form-control" th:errorClass="is-invalid">
 
             <div th:if="${#fields.hasErrors('cedula')}" th:errors="*{cedula}" class="invalid-feedback"></div>
+            
+            <br>
+            <label for="tipo">Tipo del Chofer : </label> <br>
+			<input id="tipoTitular" type="radio" name="tipo" value="Titular" th:field="*{tipoChofer}" th:errorClass="is-invalid">
+			<label for="tipoChofer">Titular </label> <br>
+			<input id="tipoSedan" type="radio" name="tipo" value="Suplente" th:field="*{tipoChofer}" th:errorClass="is-invalid">
+			<label for="tipoSedan">Suplente </label>
         </div>
 <!--
         <div class="mb-3">

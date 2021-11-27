@@ -73,6 +73,7 @@ public class CocheController {
         }
 
         cocheDB.setMatricula(coche.getMatricula());
+        cocheDB.setTipoCoche(coche.getTipoCoche());
         cocheRepo.save(cocheDB);
         redirect.addFlashAttribute("msgExito", "El coche ha sido actualizado correctamente");
         return "redirect:/coches";

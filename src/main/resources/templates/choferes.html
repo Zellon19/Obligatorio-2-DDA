@@ -98,6 +98,7 @@
             <th>Apellido</th>
             <th>Teléfono</th>
             <th>Cédula</th>
+            <th>Tipo </th>
             <th><a class="btn btn-success" href="/nuevo"><i class="fas fa-user-plus"></i> Agregar Chofer</a></th>
 
         </tr>
@@ -109,6 +110,7 @@
             <td th:text="${chofer.apellido}"></td>
             <td th:text="${chofer.telefono}"></td>
             <td th:text="${chofer.cedula}"></td>
+            <td th:text="${chofer.tipoChofer}"></td>
 
             <td><a th:href="@{/{id}/editar/(id=${chofer.id})}" class="btn btn-warning"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                 <a href="#" onclick="eliminarChofer(this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>

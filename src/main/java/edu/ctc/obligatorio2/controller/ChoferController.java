@@ -76,6 +76,7 @@ public class ChoferController {
         choferDB.setApellido(chofer.getApellido());
         choferDB.setTelefono(chofer.getTelefono());
         choferDB.setCedula(chofer.getCedula());
+        choferDB.setTipoChofer(chofer.getTipoChofer());
 
         choferRepo.save(choferDB);
         redirect.addFlashAttribute("msgExito", "El chofer ha sido actualizado correctamente");
