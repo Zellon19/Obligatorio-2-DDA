@@ -33,6 +33,16 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
+	@Column (nullable = false)
+	private TipoChofer tipoChofer;
+	
+	public TipoChofer getTipoChofer() {
+		return tipoChofer;
+	}
+	public void setTipoChofer(TipoChofer tipoChofer) {
+		this.tipoChofer = tipoChofer;
+	}
+
 	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.ALL)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
@@ -78,12 +88,13 @@ public class Chofer {
 		return listaTurnos;
 	}
 
-	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula) {
+	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula, TipoChofer tipoChofer) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.telefono = telefono;
 		this.cedula = cedula;
+		this.tipoChofer = tipoChofer;
 	}
 	
 	public Chofer(){}
@@ -92,6 +103,6 @@ public class Chofer {
 	public String toString() {
 		return id + " " + nombre + " " + apellido +
 				" " + telefono +
-				" " + cedula;
+				" " + cedula + " " + tipoChofer.Tipo();
 	}
 }

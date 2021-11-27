@@ -17,6 +17,16 @@ public class Coche {
 	
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
+	
+	@Column (nullable = false)
+	private TipoCoche tipoCoche;
+
+	public TipoCoche getTipoCoche() {
+		return tipoCoche;
+	}
+	public void setTipoCoche(TipoCoche tipoCoche) {
+		this.tipoCoche = tipoCoche;
+	}
 
 	@ManyToMany(mappedBy = "listaCochesEnElTurno", cascade = CascadeType.ALL)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
@@ -46,9 +56,10 @@ public class Coche {
 	public Coche() {
 	}
 
-	public Coche(Long id, String matricula) {
+	public Coche(Long id, String matricula, TipoCoche tipoCoche) {
 		this.id = id;
 		this.matricula = matricula;
+		this.tipoCoche = tipoCoche;
 	}
 
 }
