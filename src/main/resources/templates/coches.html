@@ -96,6 +96,7 @@
         <tr>
             <th>ID</th>
             <th>Matrícula</th>
+            <th>Tipo Coche </th>
             <th><a class="btn btn-success" href="coches/nuevoCoche"><i class="fas fa-user-plus"></i> Agregar Coche</a></th>
 
         </tr>
@@ -104,7 +105,7 @@
         <tr th:each="coche: ${coches}">
             <td th:text="${coche.id}"></td>
             <td th:text="${coche.matricula}"></td>
-            <td th:text="${coche.tipoCoche.Tipo()}"></td>
+            <td th:text="${coche.tipoCoche}"></td>
 
             <td><a th:href="@{coches/{id}/editarCoche/(id=${coche.id})}" class="btn btn-warning"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                 <a href="#" onclick="eliminarCoche(this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
