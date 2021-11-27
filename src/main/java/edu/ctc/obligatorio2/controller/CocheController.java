@@ -29,7 +29,7 @@ public class CocheController {
         this.cocheServicio = cocheServicio;
     }
 
-    //devuelve el http response con todos los choferes
+    //devuelve el http response con todos los coches
 
     @GetMapping({ "/", "" })
     public String pagListaCoches(Model modelo) {

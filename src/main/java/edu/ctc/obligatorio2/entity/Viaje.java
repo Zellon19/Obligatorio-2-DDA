@@ -4,14 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "viajes")
@@ -28,7 +21,7 @@ public class Viaje {
 	private float kmRecorridos;
 	
 	@Column
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private LocalDateTime fechaHora;
 	
 	@Column
@@ -45,7 +38,45 @@ public class Viaje {
 	@ManyToOne
 	@JoinColumn(name = "turnos")
 	private Turno turno;
-	
+
+	/////////////////////////////////////////
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "lista_viajes_del_chofer_id")
+	private Chofer listaViajesDelChofer;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "lista_turnos_viaje_id")
+	private Turno listaTurnosViaje;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "lista_coche_en_el_viaje_id")
+	private Coche listaCocheEnElViaje;
+
+	public Coche getListaCocheEnElViaje() {
+		return listaCocheEnElViaje;
+	}
+
+	public void setListaCocheEnElViaje(Coche listaCocheEnElViaje) {
+		this.listaCocheEnElViaje = listaCocheEnElViaje;
+	}
+
+	public Turno getListaTurnosViaje() {
+		return listaTurnosViaje;
+	}
+
+	public void setListaTurnosViaje(Turno listaTurnosViaje) {
+		this.listaTurnosViaje = listaTurnosViaje;
+	}
+
+	public Chofer getListaViajesDelChofer() {
+		return listaViajesDelChofer;
+	}
+
+	public void setListaViajesDelChofer(Chofer listaViajesDelChofer) {
+		this.listaViajesDelChofer = listaViajesDelChofer;
+	}
+
 	public Long getId() {
 		return id;
 	}

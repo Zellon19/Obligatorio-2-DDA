@@ -18,10 +18,10 @@ public class Coche {
 	@Column (length=7, nullable = false, unique = true)
 	private String matricula;
 
-	@ManyToMany(mappedBy = "listaCochesEnElTurno", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "listaCochesEnElTurno", cascade = CascadeType.ALL)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
-	@OneToMany
+	@OneToMany(mappedBy = "listaCocheEnElViaje",cascade = CascadeType.ALL)
 	private List<Viaje> viajes;
 	
 	public Long getId() {

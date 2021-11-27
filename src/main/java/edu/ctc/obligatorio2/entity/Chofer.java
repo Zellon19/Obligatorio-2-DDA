@@ -33,11 +33,11 @@ public class Chofer {
 	@Column (length=8, nullable = false, unique = true)
 	private String cedula;
 	
-	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.ALL)
 	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
-	@OneToMany
-	private List<Viaje> viajes;
+	@OneToMany(mappedBy = "listaViajesDelChofer", cascade = CascadeType.ALL)
+	private List<Viaje> listaViajesDelChofer = new ArrayList<Viaje>();
 	
 	public Long getId() {
 		return id;

@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
-@RequestMapping("/turno")
+@RequestMapping("/turnos")
 public class TurnoController {
     private final TurnoServicio turnoServicio;
 
@@ -31,18 +31,13 @@ public class TurnoController {
     public TurnoController(TurnoServicio turnoServicio) {
         this.turnoServicio = turnoServicio;
     }
-    
-    @GetMapping("/home")
-    public String mostrarHome() {
-        return "home";
-    }
 
     //devuelve el http response con todos los turnos
-    @GetMapping({"/turnos", ""})
+    @GetMapping({"/", ""})
     public String pagListaTurnos(Model modelo) {
     	List<Turno> turnos = turnoServicio.findAllTurnos();
     	modelo.addAttribute("turno", turnos);
-    	return "";
+    	return "turnos.html";
     }
 
     // agrega un turno

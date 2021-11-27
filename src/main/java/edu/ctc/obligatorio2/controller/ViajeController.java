@@ -65,6 +65,33 @@ public class ViajeController {
 		return "redirect:/viajes";
 	}
 
+	@GetMapping("/{id}/editarViaje")
+	public String editarViaje(@PathVariable Long id, Model modelo) {
+		Viaje viaje = viajeRepo.getById(id);
+		modelo.addAttribute("viaje", viaje);
+		return "nuevoViaje";
+	}
+
+	@PostMapping("/{id}/editarViaje")
+	public String actualizarViaje(@PathVariable Long id, @Validated Viaje viaje,
+								  BindingResult bindingResult, RedirectAttributes redirect, Model modelo) {
+		Viaje viajeDB = viajeRepo.getById(id);
+		if (bindingResult.hasErrors()) {
+			modelo.addAttribute("viaje", viaje);
+			return "nuevoViaje";
+		}
+
+		viajeDB.setDireccion(viaje.getDireccion());
+		viajeDB.setKmRecorridos(viaje.getKmRecorridos());
+		viajeDB.setfechaHora(viaje.getFechaHora());
+		viajeDB.setPrecio(viaje.getPrecio());
+		viajeDB.setChofer(viaje.getChofer());
+		viajeDB.setTurno(viaje.getTurno());
+
+		viajeRepo.save(viajeDB);
+		redirect.addFlashAttribute("msgExito", "El viaje ha sido actualizado correctamente");
+		return "redirect:/viajes";
+	}
 
 
 
