@@ -36,7 +36,7 @@ public class TurnoController {
     @GetMapping({"/", ""})
     public String pagListaTurnos(Model modelo) {
     	List<Turno> turnos = turnoServicio.findAllTurnos();
-    	modelo.addAttribute("turno", turnos);
+    	modelo.addAttribute("turnos", turnos);
     	return "turnos.html";
     }
 
