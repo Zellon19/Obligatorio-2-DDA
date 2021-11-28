@@ -47,32 +47,26 @@ public class ConsultasController {
     
     //Consulta 2
     @GetMapping({"/consulta2"})
-    public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha",required=true) LocalDateTime fecha, Model modelo){
+    public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha",required=false) LocalDateTime fecha, @RequestParam(value="fecha2",required=false) LocalDateTime fecha2, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         List<Viaje> retorno = todosLosViajes;
         retorno.clear();
         for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == id && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
-        		retorno.add(viaje);
+        	if(fecha2 == null) {
+        		if(viaje.getChofer().getId() == id && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
+            		retorno.add(viaje);
+            	}
+        	}
+        	else if(fecha != null && fecha2 != null) {
+        		if(viaje.getChofer().getId() == id && (viaje.getFechaHora().toLocalDate().isAfter(fecha.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate()) || viaje.getFechaHora().toLocalDate().isBefore(fecha2.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha2.toLocalDate()))) {
+            		retorno.add(viaje);
+            	}
         	}
         }
         modelo.addAttribute("consultas", retorno);
         return "consulta2.html";
     }
 	
-   /* @GetMapping({"/consulta2"})
-    public String viajesPorChoferEntreFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha1",required=true) LocalDateTime fecha1, @RequestParam(value="fecha2",required=true) LocalDateTime fecha2, Model modelo){
-        List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
-        List<Viaje> retorno = todosLosViajes;
-        retorno.clear();
-        for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == id && (viaje.getFechaHora().toLocalDate().isAfter(fecha1.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha1.toLocalDate()) || viaje.getFechaHora().toLocalDate().isBefore(fecha2.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha2.toLocalDate()))) {
-        		retorno.add(viaje);
-        	}
-        }
-        modelo.addAttribute("consultas", retorno);
-        return "consulta2.html";
-    }*/
     
     //Consulta 3
     @GetMapping({"/consulta3"})
