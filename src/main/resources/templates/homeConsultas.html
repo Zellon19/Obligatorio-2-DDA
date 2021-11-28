@@ -58,6 +58,10 @@
                         <li><a class="dropdown-item" href="viajes/nuevoViaje">Agregar Viajes</a></li>
                     </ul>
                 </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="/consultas">Consultas</a>
+                </li>
             </ul>
             <ul class="navbar-nav ms-auto profile-menu">
                 <li class="nav-item dropdown">
@@ -84,37 +88,46 @@
     <input type="submit"/>
 </form>
 
-<h4> Consulta 2</h4>
+<h4 class="mt-4"> Consulta 2</h4>
 <form th:action="@{consultas/consulta2}" method="get">
     <label>Id del Chofer: </label>
     <input type="text" th:name="idChofer"/>
     <label>En una fecha: </label>
-</form>
-    <form th:action="@{consultas/consulta2}" method="get">
-        <input type="text" th:name="id"/>
-        <input type="submit"/>
-    </form>
+    <input type="datetime-local" id="fechaC2"
+           name="fecha">
     <label>Entre dos fechas: </label>
+    <input type="datetime-local" id="fechaC3"
+           name="fecha">
+    <input type="submit"/>
 
-<h4> Consulta 3</h4>
-<label>Recaudado por chofer por viaje</label>
+
+</form>
+
+<h4 class="mt-4"> Consulta 3: lo recaudado por cada chofer parametrizado por viaje, por turno o por día</h4>
+<label>Recaudado por chofer por viaje o por turno, use dos inputs a la vez (chofer/turno o chofer/viaje)</label>
 <form th:action="@{consultas/consulta3}" method="get">
+    <label> Id chofer</label>
     <input type="text" th:name="idChofer"/>
+    <label> Id viaje</label>
     <input type="text" th:name="idViaje"/>
-    <input type="submit"/>
-</form>
-
-<label>Recaudado por chofer por turno</label>
-<form th:action="@{consultas/consulta3}" method="get">
-    <input type="text" th:name="idChofer"/>
+    <label> Id turno</label>
     <input type="text" th:name="idTurno"/>
+    <label>por fecha</label>
+    <input type="datetime-local" id="fecha"
+           name="fecha">
     <input type="submit"/>
 </form>
-<label>Recaudado por chofer por fecha</label>
-<form th:action="@{consultas/consulta3}" method="get">
-    <input type="text" th:name="idChofer"/>
-    <input type="text" th:name="fecha"/>
 
+<h4 class="mt-4"> Consulta 4: Kmts recorridos por cada auto parametrizados por día, mes, chofer.</h4>
+<form th:action="@{consultas/consulta4}" method="get">
+    <label> Id coche</label>
+    <input type="text" th:name="idCoche"/>
+    <label>Por Dia</label>
+    <input type="text" th:name="dia"/>
+    <label>Por Mes</label>
+    <input type="text" th:name="mes"/>
+    <label>Por Chofer</label>
+    <input type="text" th:name="idChofer"/>
     <input type="submit"/>
 </form>
 
