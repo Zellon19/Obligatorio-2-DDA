@@ -2,7 +2,6 @@ package edu.ctc.obligatorio2.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Table;
@@ -32,7 +31,6 @@ public class Coche {
 	
 	@Enumerated(EnumType.STRING)
 	private TipoCoche tipoCoche;
-
 	
 	public TipoCoche getTipoCoche() {
 		return tipoCoche;
