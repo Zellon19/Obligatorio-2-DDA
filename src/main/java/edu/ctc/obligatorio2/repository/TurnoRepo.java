@@ -15,10 +15,4 @@ public interface TurnoRepo extends JpaRepository<Turno, Long> {
 
         void deleteTurnoById(Long id);
         Optional<Turno> findTurnoById(Long id);
-
-
-        //consulta 1
-
-        @Query(value = "SELECT tc FROM Turno t INNER JOIN t.listaCochesEnElTurno tc where tc LIKE %?1%") //el numero indica cant de parametros
-        public List<Coche> cochesParaUnTurno(Long id);
 }

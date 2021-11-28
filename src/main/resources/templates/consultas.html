@@ -78,26 +78,16 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Teléfono</th>
-        <th>Cédula</th>
-
+        <th>Matricula</th>
+        <th>Tipo</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="chofer : ${choferes}">
-        <td th:text="${chofer.id}"></td>
-        <td th:text="${chofer.nombre}"></td>
-        <td th:text="${chofer.apellido}"></td>
-        <td th:text="${chofer.telefono}"></td>
-        <td th:text="${chofer.cedula}"></td>
-
-        <td><a th:href="@{/{id}/editar/(id=${chofer.id})}" class="btn btn-warning"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-            <a href="#" onclick="eliminarChofer(this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
-
-            <form th:action="@{/{id}/eliminar/(id=${chofer.id})}"
-                  method="post"></form></td>
+    <tr th:each="consulta : ${consultas}">
+        <td th:text="${consulta.id}"></td>
+        <td th:text="${consulta.matricula}"></td>
+		<td th:text="${consulta.tipoCoche}"></td>
+       
     </tr>
     </tbody>
 </table>

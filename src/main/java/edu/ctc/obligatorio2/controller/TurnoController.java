@@ -87,16 +87,5 @@ public class TurnoController {
     	Turno turno = turnoServicio.findTurnoById(id);
         return new ResponseEntity<>(turno, HttpStatus.OK);
     }
-    //Consulta 1 Sofia
-    @GetMapping("consultas/{id}")
-    public ResponseEntity<?> cochesParaUnTurnow(@RequestParam Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(turnoServicio.cochesParaUnTurno(id));
-    }
-
-    //Consulta 1
-    public List<Coche> cochesParaUnTurno(Long id){
-		ResponseEntity<Turno> turno = getTurnoById(id);
-		return turno.getBody().getListaCoches();
-	}
     
 }

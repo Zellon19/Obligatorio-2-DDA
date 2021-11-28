@@ -42,10 +42,4 @@ public class TurnoServicio {
     public void deleteTurno(Long id){
         turnoRepo.deleteTurnoById(id);
     }
-
-    //Consulta 1
-    public List<Coche> cochesParaUnTurno(Long id){
-        List<Coche> coches = turnoRepo.cochesParaUnTurno(id);
-        return coches;
-    }
 }
