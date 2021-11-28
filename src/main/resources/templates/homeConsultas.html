@@ -9,7 +9,29 @@
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
             crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+<style>
 
+.buttonS{
+background-color: #ecc54b;
+border-radius: 15px;
+}
+
+ .buttonS:hover {
+ background-color: #198754;
+ }
+
+.buttonS:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+</style>
     <!--  Nav bar-->
     <div class="navbar navbar-expand-md navbar-dark bg-dark" role="navigation">
         <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
@@ -81,15 +103,16 @@
     </div>
 </head>
 <body>
-<h4 class="mt-4"> Consulta 1</h4>
-<form th:action="@{consultas/consulta1}" method="get">
+<h4 class="mt-4 text-center"> Consulta 1: La flota de autos para un turno determinado</h4>
+<form class="mx-4" th:action="@{consultas/consulta1}" method="get">
     <label>Id del Turno</label>
     <input type="text" th:name="id"/>
-    <input type="submit"/>
+    <input type="submit" class="buttonS btn"/>
 </form>
 
-<h4 class="mt-4"> Consulta 2</h4>
-<form th:action="@{consultas/consulta2}" method="get">
+<h4 class="mt-4 text-center"> Consulta 2: Los viajes realizados por un chofer parametrizados por fecha </h4>
+<label class="mx-4"><i class="fas fa-angle-right"></i>Utilice un calendario para buscar en una fecha determinada o los dos para buscar entre fechas</label>
+<form class="mx-4" th:action="@{consultas/consulta2}" method="get">
     <label>Id del Chofer: </label>
     <input type="text" th:name="idChofer"/>
     <label>En una fecha: </label>
@@ -98,14 +121,14 @@
     <label>Entre dos fechas: </label>
     <input type="datetime-local" id="fechaC3"
            name="fecha">
-    <input type="submit"/>
+    <input type="submit" class="buttonS btn"/>
 
 
 </form>
 
-<h4 class="mt-4"> Consulta 3: lo recaudado por cada chofer parametrizado por viaje, por turno o por día</h4>
-<label>Recaudado por chofer por viaje o por turno, use dos inputs a la vez (chofer/turno o chofer/viaje)</label>
-<form th:action="@{consultas/consulta3}" method="get">
+<h4 class="mt-4 text-center"> Consulta 3: Lo recaudado por cada chofer parametrizado por viaje, por turno o por día</h4>
+<label class="mx-4"> <i class="fas fa-angle-right"></i>Recaudado por chofer por viaje o por turno, use SOLO dos inputs a la vez (chofer/turno, chofer/viaje, chofer/fecha)</label>
+<form class="mx-4" th:action="@{consultas/consulta3}" method="get">
     <label> Id chofer</label>
     <input type="text" th:name="idChofer"/>
     <label> Id viaje</label>
@@ -115,11 +138,11 @@
     <label>por fecha</label>
     <input type="datetime-local" id="fecha"
            name="fecha">
-    <input type="submit"/>
+    <input type="submit" class="buttonS btn"/>
 </form>
 
-<h4 class="mt-4"> Consulta 4: Kmts recorridos por cada auto parametrizados por día, mes, chofer.</h4>
-<form th:action="@{consultas/consulta4}" method="get">
+<h4 class="mt-4 text-center"> Consulta 4: Kmts recorridos por cada auto parametrizados por día, mes, chofer.</h4>
+<form class="mx-4" th:action="@{consultas/consulta4}" method="get">
     <label> Id coche</label>
     <input type="text" th:name="idCoche"/>
     <label>Por Dia</label>
@@ -128,7 +151,7 @@
     <input type="text" th:name="mes"/>
     <label>Por Chofer</label>
     <input type="text" th:name="idChofer"/>
-    <input type="submit"/>
+    <input type="submit" class="buttonS btn"/>
 </form>
 
 
