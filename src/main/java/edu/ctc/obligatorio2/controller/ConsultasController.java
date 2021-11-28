@@ -60,8 +60,8 @@ public class ConsultasController {
         return "consulta2.html";
     }
 	
-    @GetMapping({"/consulta2"})
-    public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha1",required=true) LocalDateTime fecha1, @RequestParam(value="fecha2",required=true) LocalDateTime fecha2, Model modelo){
+   /* @GetMapping({"/consulta2"})
+    public String viajesPorChoferEntreFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha1",required=true) LocalDateTime fecha1, @RequestParam(value="fecha2",required=true) LocalDateTime fecha2, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         List<Viaje> retorno = todosLosViajes;
         retorno.clear();
@@ -72,7 +72,7 @@ public class ConsultasController {
         }
         modelo.addAttribute("consultas", retorno);
         return "consulta2.html";
-    }
+    }*/
     
     //Consulta 3
     @GetMapping({"/consulta3"})
@@ -87,7 +87,7 @@ public class ConsultasController {
         modelo.addAttribute("consultas", total);
         return "consulta3.html";
     }
-    
+   /*
     @GetMapping({"/consulta3"})
     public String recaudadoPorChoferPorTurno(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idTurno",required=true) Long idTurno, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
@@ -112,6 +112,6 @@ public class ConsultasController {
         }
         modelo.addAttribute("consultas", total);
         return "consulta3.html";
-    }
+    }*/
 
 }

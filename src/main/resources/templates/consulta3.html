@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Consulta 3</title>
 </head>
 <body>
++<table class="table table-hover w-50">
+    <thead>
+    <tr>
+        <th>Total Recaudado</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="consulta : ${consultas}">
+        <td th:text="${consulta.total}"></td>
 
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>
