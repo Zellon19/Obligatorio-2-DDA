@@ -66,7 +66,7 @@ public class ConsultasController {
         List<Viaje> retorno = todosLosViajes;
         retorno.clear();
         for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == id && (viaje.getFechaHora().toLocalDate().isAfter(fecha1.toLocalDate()) || viaje.getFechaHora().toLocalDate().isBefore(fecha2.toLocalDate()))) {
+        	if(viaje.getChofer().getId() == id && (viaje.getFechaHora().toLocalDate().isAfter(fecha1.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha1.toLocalDate()) || viaje.getFechaHora().toLocalDate().isBefore(fecha2.toLocalDate()) || viaje.getFechaHora().toLocalDate().equals(fecha2.toLocalDate()))) {
         		retorno.add(viaje);
         	}
         }
@@ -76,7 +76,7 @@ public class ConsultasController {
     
     //Consulta 3
     @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorViaje(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, Model modelo){
+    public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false) LocalDateTime fecha, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         for(Viaje viaje: todosLosViajes) {
@@ -90,35 +90,42 @@ public class ConsultasController {
             		total += viaje.getPrecio();
             	}
         	}
-        }
-        modelo.addAttribute("consultas", total);
-        return "consulta3.html";
-    }
-   /*
-    @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorTurno(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idTurno",required=true) Long idTurno, Model modelo){
-        List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
-        Float total = 0f;
-        for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == idChofer && viaje.getTurno().getId() == idTurno) {
-        		total += viaje.getPrecio();
+        	else if(fecha != null) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
+            		total += viaje.getPrecio();
+            	}
         	}
         }
         modelo.addAttribute("consultas", total);
         return "consulta3.html";
     }
     
-    @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="fecha",required=true) LocalDateTime fecha, Model modelo){
+    
+    
+    //Consulta 4
+    @GetMapping({"/consulta4"})
+    public String kmRecorridosPorCochePorDiaMesChofer(@RequestParam(value="idCoche",required=true) Long idCoche, @RequestParam(value="dia",required=false) LocalDateTime dia, @RequestParam(value="mes",required=false) LocalDateTime mes, @RequestParam(value="idChofer",required=false) Long idChofer, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
-        		total += viaje.getPrecio();
+        	if(dia != null) {
+        		if(viaje.getCoche().getId() == idCoche && viaje.getFechaHora().toLocalDate().equals(dia.toLocalDate())) {
+            		total += viaje.getKmRecorridos();
+            	}
+        	}
+        	else if(mes != null) {
+        		if(viaje.getCoche().getId() == idCoche && (viaje.getFechaHora().getMonth().equals(mes.getMonth()) && viaje.getFechaHora().getYear() == mes.getYear())) {
+            		total += viaje.getKmRecorridos();
+            	}
+        	}
+        	else if(idChofer != null) {
+        		if(viaje.getCoche().getId() == idCoche && viaje.getChofer().getId() == idChofer) {
+        			total += viaje.getKmRecorridos();
+            	}
         	}
         }
         modelo.addAttribute("consultas", total);
-        return "consulta3.html";
-    }*/
+        return "consulta4.html";
+    }
 
 }
