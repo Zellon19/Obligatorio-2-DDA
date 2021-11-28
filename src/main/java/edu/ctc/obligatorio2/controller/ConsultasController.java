@@ -1,7 +1,11 @@
 package edu.ctc.obligatorio2.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -70,9 +74,11 @@ public class ConsultasController {
     
     //Consulta 3
     @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false) LocalDateTime fecha, Model modelo){
+    public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false) String fecha, Model modelo) throws ParseException{
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
+        
+        LocalDate fFecha = new SimpleDateFormat("yyyy/MM/dd").parse(fecha).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         for(Viaje viaje: todosLosViajes) {
         	if(idViaje != null) {
         		if(viaje.getChofer().getId() == idChofer && viaje.getId() == idViaje) {
@@ -85,7 +91,7 @@ public class ConsultasController {
             	}
         	}
         	else if(fecha != null) {
-        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fFecha)) {
             		total += viaje.getPrecio();
             	}
         	}
