@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +52,7 @@ public class ConsultasController {
     
     //Consulta 2
     @GetMapping({"/consulta2"})
-    public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha",required=false) LocalDateTime fecha, @RequestParam(value="fecha2",required=false) LocalDateTime fecha2, Model modelo){
+    public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime fecha, @RequestParam(value="fecha2",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         List<Viaje> retorno = todosLosViajes;
         retorno.clear();
@@ -74,11 +75,11 @@ public class ConsultasController {
     
     //Consulta 3
     @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false) String fecha, Model modelo) throws ParseException{
+    public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, Model modelo) throws ParseException{
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         
-        LocalDate fFecha = new SimpleDateFormat("yyyy/MM/dd").parse(fecha).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+       // LocalDate fFecha = new SimpleDateFormat("yyyy/MM/dd").parse(fecha).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         for(Viaje viaje: todosLosViajes) {
         	if(idViaje != null) {
         		if(viaje.getChofer().getId() == idChofer && viaje.getId() == idViaje) {
@@ -91,7 +92,7 @@ public class ConsultasController {
             	}
         	}
         	else if(fecha != null) {
-        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fFecha)) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha)) {
             		total += viaje.getPrecio();
             	}
         	}
