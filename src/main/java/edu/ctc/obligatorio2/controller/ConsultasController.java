@@ -76,12 +76,19 @@ public class ConsultasController {
     
     //Consulta 3
     @GetMapping({"/consulta3"})
-    public String recaudadoPorChoferPorViaje(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=true) Long idViaje, Model modelo){
+    public String recaudadoPorChoferPorViaje(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         for(Viaje viaje: todosLosViajes) {
-        	if(viaje.getChofer().getId() == idChofer && viaje.getId() == idViaje) {
-        		total += viaje.getPrecio();
+        	if(idViaje != null) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getId() == idViaje) {
+            		total += viaje.getPrecio();
+            	}
+        	}
+        	else if(idTurno != null) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getTurno().getId() == idTurno) {
+            		total += viaje.getPrecio();
+            	}
         	}
         }
         modelo.addAttribute("consultas", total);
