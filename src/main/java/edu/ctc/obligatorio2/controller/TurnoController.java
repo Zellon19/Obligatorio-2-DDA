@@ -1,6 +1,5 @@
 package edu.ctc.obligatorio2.controller;
 
-import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.repository.TurnoRepo;
 import edu.ctc.obligatorio2.service.TurnoServicio;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -23,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/turnos")
 public class TurnoController {
+	
     private final TurnoServicio turnoServicio;
 
     @Autowired
@@ -31,7 +30,7 @@ public class TurnoController {
     public TurnoController(TurnoServicio turnoServicio) {
         this.turnoServicio = turnoServicio;
     }
-
+    
     //devuelve el http response con todos los turnos
     @GetMapping({"/", ""})
     public String pagListaTurnos(Model modelo) {
@@ -53,7 +52,20 @@ public class TurnoController {
     		modelo.addAttribute("turno", turno);
     		return "nuevoTurno";
     	}
-    	
+    	if(this.getTurnoById(turno.getId()).equals(turno)) {
+    		if(turno.getListaChoferes().size() != 1) {
+    			redirect.addFlashAttribute("msgExito", "No puede haber más de 1 chofer por turno.");
+    			return "redirect:/turnos";
+    		}
+    	}
+    	List<Turno> listaTurnos = turnoServicio.findAllTurnos();
+    	for(Turno turnoFor : listaTurnos) {
+    		if(turnoFor.getId().equals(turno)) {
+    			// random bs go!
+    			// falta fecha ewe
+    		}
+    	}
+    
     	turnoRepo.save(turno);
     	redirect.addFlashAttribute("msgExito", "El turno ha sido guardado exitosamente");
     	return "redirect:/turnos";
