@@ -107,26 +107,6 @@
         </tbody>
     </table>
 
-    <h2>Lista de Coches por Turno</h2>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>ID Coche</th>
-            <th>Matrícula</th>
-            <th>Tipo Coche</th>
-            <th>ID Turno</th>
-            <th>Tipo Turno</th>
-            <th><a class="btn btn-success" href="turnos/nuevoTurno"><i class="fas fa-user-plus"></i> Agregar Coche por Turno</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="turno: ${turnos}">
-            <td th:text="${turno.id}"></td>
-            <td th:text="${turno.tipo}"></td>
-        </tr>
-        </tbody>
-    </table>
-
 </div>
 
 

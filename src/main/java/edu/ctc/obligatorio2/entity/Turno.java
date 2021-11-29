@@ -27,28 +27,6 @@ public class Turno {
 	@OneToMany(mappedBy = "listaTurnosViaje", cascade = CascadeType.ALL)
 	private List<Viaje> listaTurnosViajes;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "chofer_turno",
-			joinColumns = @JoinColumn(name = "chofer_id"),
-			inverseJoinColumns = @JoinColumn(name = "id"))
-	private List<Chofer> listaChoferesEnElTurno;
-	
-	@ManyToMany
-	@JoinTable(
-			name = "coche_turno",
-			joinColumns = @JoinColumn(name = "coche_id"),
-			inverseJoinColumns = @JoinColumn(name = "id"))
-	private List<Coche> listaCochesEnElTurno;
-	
-	
-	public List<Chofer> getListaChoferes(){
-		return listaChoferesEnElTurno;
-	}
-	
-	public List<Coche> getListaCoches(){
-		return listaCochesEnElTurno;
-	}
 	
 	public Long getId() {
 		return id;
@@ -70,6 +48,6 @@ public class Turno {
 
 	@Override
 	public String toString() {
-		return id + tipo ;
+		return id + " " + tipo ;
 	}
 }

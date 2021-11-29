@@ -1,11 +1,7 @@
 package edu.ctc.obligatorio2.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.entity.Viaje;
+import edu.ctc.obligatorio2.service.CocheServicio;
 import edu.ctc.obligatorio2.service.TurnoServicio;
 import edu.ctc.obligatorio2.service.ViajeServicio;
 
@@ -27,10 +24,12 @@ public class ConsultasController {
 	
 	private final TurnoServicio turnoServicio;
 	private final ViajeServicio viajeServicio;
+	private final CocheServicio cocheServicio;
 	
-	public ConsultasController(TurnoServicio turnoServicio, ViajeServicio viajeServicio) {
+	public ConsultasController(TurnoServicio turnoServicio, ViajeServicio viajeServicio, CocheServicio cocheServ) {
         this.turnoServicio = turnoServicio;
         this.viajeServicio = viajeServicio;
+        this.cocheServicio = cocheServ;
     }
 
 
@@ -44,7 +43,14 @@ public class ConsultasController {
     @GetMapping({"/consulta1"})
     public String cochesParaUnTurnow(@RequestParam(value="id",required=true) Long id, Model modelo){
         Turno turno = turnoServicio.findTurnoById(id);
-        List<Coche> coches = turno.getListaCoches();
+        List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
+        List<Coche> coches = cocheServicio.findAllCoches(); //Si no le asignamos algo no nos deja inicializar
+        coches.clear();
+        for(Viaje viaje: todosLosViajes) {
+        	if(viaje.getTurno().equals(turno) && !coches.contains(viaje.getCoche())) {
+        		coches.add(viaje.getCoche());
+        	}
+        }
         modelo.addAttribute("consultas", coches);
         return "consulta1.html";
     }

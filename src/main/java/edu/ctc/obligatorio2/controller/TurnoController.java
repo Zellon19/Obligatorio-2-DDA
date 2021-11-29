@@ -52,19 +52,6 @@ public class TurnoController {
     		modelo.addAttribute("turno", turno);
     		return "nuevoTurno";
     	}
-    	if(this.getTurnoById(turno.getId()).equals(turno)) {
-    		if(turno.getListaChoferes().size() != 1) {
-    			redirect.addFlashAttribute("msgExito", "No puede haber más de 1 chofer por turno.");
-    			return "redirect:/turnos";
-    		}
-    	}
-    	List<Turno> listaTurnos = turnoServicio.findAllTurnos();
-    	for(Turno turnoFor : listaTurnos) {
-    		if(turnoFor.getId().equals(turno)) {
-    			// random bs go!
-    			// falta fecha ewe
-    		}
-    	}
     
     	turnoRepo.save(turno);
     	redirect.addFlashAttribute("msgExito", "El turno ha sido guardado exitosamente");

@@ -38,9 +38,6 @@ public class Coche {
 	public void setTipoCoche(TipoCoche tipoCoche) {
 		this.tipoCoche = tipoCoche;
 	}
-
-	@ManyToMany(mappedBy = "listaCochesEnElTurno", cascade = CascadeType.ALL)
-	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
 	@OneToMany(mappedBy = "listaCocheEnElViaje",cascade = CascadeType.ALL)
 	private List<Viaje> viajes;
@@ -61,7 +58,7 @@ public class Coche {
 	
 	@Override
 	public String toString() {
-		return id + " " + matricula;
+		return id + " " + matricula + " " + tipoCoche;
 	}
 
 	public Coche() {

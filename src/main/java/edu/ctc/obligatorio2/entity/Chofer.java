@@ -42,9 +42,6 @@ public class Chofer {
 	public void setTipoChofer(TipoChofer tipoChofer) {
 		this.tipoChofer = tipoChofer;
 	}
-
-	@ManyToMany(mappedBy = "listaChoferesEnElTurno", cascade = CascadeType.ALL)
-	private List<Turno> listaTurnos = new ArrayList<Turno>();
 	
 	@OneToMany(mappedBy = "listaViajesDelChofer", cascade = CascadeType.ALL)
 	private List<Viaje> listaViajesDelChofer = new ArrayList<Viaje>();
@@ -82,10 +79,6 @@ public class Chofer {
 	}
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
-	}
-
-	public List<Turno> getListaTurnos(){
-		return listaTurnos;
 	}
 
 	public Chofer(Long id, String nombre, String apellido, String telefono, String cedula, TipoChofer tipoChofer) {
