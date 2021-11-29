@@ -25,6 +25,7 @@ import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.entity.Viaje;
 import edu.ctc.obligatorio2.repository.ViajeRepo;
 import edu.ctc.obligatorio2.service.ChoferServicio;
+import edu.ctc.obligatorio2.service.CocheServicio;
 import edu.ctc.obligatorio2.service.ViajeServicio;
 
 @Controller
@@ -36,9 +37,11 @@ public class ViajeController {
 
 	private final ViajeServicio viajeServicio;
 	private final ChoferServicio choferServicio;
-	public ViajeController(ViajeServicio pViajeServ, ChoferServicio pChoferServ) {
+	private final CocheServicio cocheServicio;
+	public ViajeController(ViajeServicio pViajeServ, ChoferServicio pChoferServ, CocheServicio pCocheServ) {
 		this.viajeServicio = pViajeServ;
 		this.choferServicio = pChoferServ;
+		this.cocheServicio = pCocheServ;
 	}
 
 
@@ -63,7 +66,7 @@ public class ViajeController {
 		}
 		Chofer chofer = choferServicio.findChoferById(viaje.getChofer().getId());
 		
-		 //Check de que suplentes no hagan mas de un turno por dia y que un chofer no use autos distintos en el turno
+		 //Check de que suplentes no hagan mas de un turno por dia, que un chofer no use autos distintos en el turno y que choferes distintos no usen el mismo auto en el mismo turno
 			List<Viaje> viajes = getAllViajes().getBody();
 			Turno turno = null;
 			Coche coche = null;
@@ -76,7 +79,7 @@ public class ViajeController {
 			}
 			
 			
-			List<Coche> cochesUsadosPorOtros = List.of(coche);
+			List<Coche> cochesUsadosPorOtros = cocheServicio.findAllCoches();
 			cochesUsadosPorOtros.clear();
 			
 			for(Viaje iViaje: viajes) {
