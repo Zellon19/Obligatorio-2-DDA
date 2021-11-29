@@ -101,6 +101,11 @@ public class Chofer {
 
 	@Override
 	public String toString() {
+		if(tipoChofer != null) {
+			return id + " " + nombre + " " + apellido +
+					" " + telefono +
+					" " + cedula;// + " " + tipoChofer.Tipo();
+		}
 		return id + " " + nombre + " " + apellido +
 				" " + telefono +
 				" " + cedula + " " + tipoChofer.Tipo();

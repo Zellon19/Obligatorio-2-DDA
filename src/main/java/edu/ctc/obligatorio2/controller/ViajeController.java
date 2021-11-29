@@ -1,10 +1,8 @@
 package edu.ctc.obligatorio2.controller;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
-import edu.ctc.obligatorio2.repository.ViajeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.ctc.obligatorio2.entity.Chofer;
 import edu.ctc.obligatorio2.entity.Coche;
+import edu.ctc.obligatorio2.entity.TipoChofer;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.entity.Viaje;
+import edu.ctc.obligatorio2.repository.ViajeRepo;
+import edu.ctc.obligatorio2.service.ChoferServicio;
 import edu.ctc.obligatorio2.service.ViajeServicio;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/viajes")
@@ -35,8 +35,10 @@ public class ViajeController {
 	ViajeRepo viajeRepo;
 
 	private final ViajeServicio viajeServicio;
-	public ViajeController(ViajeServicio pViajeServ) {
+	private final ChoferServicio choferServicio;
+	public ViajeController(ViajeServicio pViajeServ, ChoferServicio pChoferServ) {
 		this.viajeServicio = pViajeServ;
+		this.choferServicio = pChoferServ;
 	}
 
 
@@ -59,6 +61,28 @@ public class ViajeController {
 			modelo.addAttribute("viaje", viaje);
 			return "nuevoViaje";
 		}
+		Chofer chofer = choferServicio.findChoferById(viaje.getChofer().getId());
+		
+		if(chofer.getTipoChofer().equals(TipoChofer.Suplente)) { //Check de que suplentes no hagan mas de un turno por dia
+			List<Viaje> viajes = getAllViajes().getBody();
+			Turno turno = null;
+			for(Viaje iViaje: viajes) {
+				if(iViaje.getChofer().equals(chofer) && iViaje.getFechaHora().toLocalDate().equals(viaje.getFechaHora().toLocalDate())){
+					turno = iViaje.getTurno();
+					break;
+				}
+			}
+			if(viaje.getTurno().equals(turno)) {
+				viajeRepo.save(viaje);
+				redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
+				return "redirect:/viajes";
+			}
+			else {
+				modelo.addAttribute("viaje", viaje);
+				return "nuevoViaje";
+			}
+		}
+		
 
 		viajeRepo.save(viaje);
 		redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
@@ -120,6 +144,24 @@ public class ViajeController {
 	//agrega un viaje
 	@PostMapping("/add")
 	public ResponseEntity<Viaje> addViaje(@RequestBody Viaje pViaje){
+		System.out.println("cuack");
+		if(pViaje.getChofer().getTipoChofer().equals(TipoChofer.Suplente)) { //Check de que suplentes no hagan mas de un turno por dia
+			List<Viaje> viajes = (List<Viaje>) getAllViajes();
+			Turno turno = null;
+			for(Viaje viaje: viajes) {
+				if(viaje.getChofer().equals(pViaje.getChofer()) && viaje.getFechaHora().toLocalDate().equals(pViaje.getFechaHora().toLocalDate())){
+					turno = viaje.getTurno();
+					break;
+				}
+			}
+			if(pViaje.getTurno().equals(turno)) {
+				Viaje viaje = viajeServicio.addViaje(pViaje);
+				return new ResponseEntity<>(viaje, HttpStatus.CREATED);
+			}
+			else {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+		}
 		Viaje viaje = viajeServicio.addViaje(pViaje);
 		return new ResponseEntity<>(viaje, HttpStatus.CREATED);
 	}
