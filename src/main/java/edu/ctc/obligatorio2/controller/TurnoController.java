@@ -1,5 +1,6 @@
 package edu.ctc.obligatorio2.controller;
 
+import edu.ctc.obligatorio2.entity.Coche;
 import edu.ctc.obligatorio2.entity.Turno;
 import edu.ctc.obligatorio2.repository.TurnoRepo;
 import edu.ctc.obligatorio2.service.TurnoServicio;
@@ -85,6 +86,15 @@ public class TurnoController {
     public ResponseEntity<Turno> getTurnoById(@PathVariable("id") Long id){
     	Turno turno = turnoServicio.findTurnoById(id);
         return new ResponseEntity<>(turno, HttpStatus.OK);
+    }
+    
+    
+    @PostMapping("/{id}/eliminar")
+    public String eliminarTurno(@PathVariable Long id, RedirectAttributes redirect) {
+        Turno turno = turnoRepo.getById(id);
+        turnoRepo.delete(turno);
+        redirect.addFlashAttribute("msgExito", "El turno ha sido eliminado correctamente");
+        return "redirect:/turnos";
     }
     
 }

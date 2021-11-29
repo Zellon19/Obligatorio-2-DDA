@@ -83,7 +83,7 @@ public class CocheController {
     public String eliminarCoche(@PathVariable Long id, RedirectAttributes redirect) {
         Coche coche = cocheRepo.getById(id);
         cocheRepo.delete(coche);
-        redirect.addFlashAttribute("msgExito", "El chofer ha sido eliminado correctamente");
+        redirect.addFlashAttribute("msgExito", "El coche ha sido eliminado correctamente");
         return "redirect:/coches";
     }
 

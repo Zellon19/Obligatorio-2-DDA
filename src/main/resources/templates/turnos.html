@@ -103,6 +103,12 @@
         <tr th:each="turno: ${turnos}">
             <td th:text="${turno.id}"></td>
             <td th:text="${turno.tipo}"></td>
+            
+            <td><a th:href="@{turnos/{id}/editarTurno/(id=${turno.id})}" class="btn btn-warning"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                <a href="#" onclick="eliminarTurno(this)" class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
+
+                <form th:action="@{turnos/{id}/eliminar/(id=${turno.id})}"
+                      method="post"></form></td>
         </tr>
         </tbody>
     </table>
