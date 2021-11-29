@@ -63,30 +63,55 @@ public class ViajeController {
 		}
 		Chofer chofer = choferServicio.findChoferById(viaje.getChofer().getId());
 		
-		if(chofer.getTipoChofer().equals(TipoChofer.Suplente)) { //Check de que suplentes no hagan mas de un turno por dia
+		 //Check de que suplentes no hagan mas de un turno por dia y que un chofer no use autos distintos en el turno
 			List<Viaje> viajes = getAllViajes().getBody();
 			Turno turno = null;
+			Coche coche = null;
 			for(Viaje iViaje: viajes) {
 				if(iViaje.getChofer().equals(chofer) && iViaje.getFechaHora().toLocalDate().equals(viaje.getFechaHora().toLocalDate())){
 					turno = iViaje.getTurno();
+					coche = iViaje.getCoche();
 					break;
 				}
 			}
-			if(viaje.getTurno().equals(turno)) {
+			
+			
+			List<Coche> cochesUsadosPorOtros = List.of(coche);
+			cochesUsadosPorOtros.clear();
+			
+			for(Viaje iViaje: viajes) {
+				if(!iViaje.getChofer().equals(chofer) && iViaje.getFechaHora().toLocalDate().equals(viaje.getFechaHora().toLocalDate()) && iViaje.getTurno().getId() == viaje.getTurno().getId()){
+					cochesUsadosPorOtros.add(iViaje.getCoche());
+				}
+			}
+			
+			Boolean bool = true;
+			for(Coche iCoche: cochesUsadosPorOtros) {
+				if(viaje.getCoche().getId() == iCoche.getId()) {
+					bool = false;
+					break;
+				}
+			}
+			
+			if(chofer.getTipoChofer().equals(TipoChofer.Suplente) && (turno == null || viaje.getTurno().getId() == turno.getId()) && (coche == null || viaje.getCoche().getId() == coche.getId()) && bool) {
 				viajeRepo.save(viaje);
 				redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
 				return "redirect:/viajes";
 			}
-			else {
+			else if(chofer.getTipoChofer().equals(TipoChofer.Suplente)) {
 				modelo.addAttribute("viaje", viaje);
 				return "nuevoViaje";
 			}
-		}
 		
-
-		viajeRepo.save(viaje);
-		redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
-		return "redirect:/viajes";
+			if((coche == null || viaje.getCoche().getId() == coche.getId()) && bool) {
+				viajeRepo.save(viaje);
+				redirect.addFlashAttribute("msgExito", "El viaje ha sido agregado con exito");
+				return "redirect:/viajes";
+			}
+			else{
+				modelo.addAttribute("viaje", viaje);
+				return "nuevoViaje";
+			}
 	}
 
 	@GetMapping("/{id}/editarViaje")
