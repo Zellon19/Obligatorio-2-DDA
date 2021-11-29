@@ -54,10 +54,11 @@ public class ConsultasController {
     @GetMapping({"/consulta2"})
     public String viajesPorChoferPorFecha(@RequestParam(value="idChofer",required=true) Long id, @RequestParam(value="fecha",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime fecha, @RequestParam(value="fecha2",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha2, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
-        List<Viaje> retorno = todosLosViajes;
+        List<Viaje> retorno = viajeServicio.findAllViajes();
         retorno.clear();
         for(Viaje viaje: todosLosViajes) {
         	if(fecha2 == null) {
+        		System.out.println(viaje.getFechaHora().toLocalDate() + " cuack");
         		if(viaje.getChofer().getId() == id && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
             		retorno.add(viaje);
             	}
@@ -79,7 +80,6 @@ public class ConsultasController {
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         
-       // LocalDate fFecha = new SimpleDateFormat("yyyy/MM/dd").parse(fecha).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         for(Viaje viaje: todosLosViajes) {
         	if(idViaje != null) {
         		if(viaje.getChofer().getId() == idChofer && viaje.getId() == idViaje) {
@@ -92,7 +92,7 @@ public class ConsultasController {
             	}
         	}
         	else if(fecha != null) {
-        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha)) {
+        		if(viaje.getChofer().getId() == idChofer && viaje.getFechaHora().toLocalDate().equals(fecha.toLocalDate())) {
             		total += viaje.getPrecio();
             	}
         	}
