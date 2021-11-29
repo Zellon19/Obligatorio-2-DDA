@@ -127,7 +127,7 @@ input[type=text] {
 </form>
 
 <h4 class="mt-4 text-center"> Consulta 3: Lo recaudado por cada chofer parametrizado por viaje, por turno o por día</h4>
-<label class="mx-4"> <i class="fas fa-angle-right"></i>Recaudado por chofer por viaje o por turno, use SOLO dos inputs a la vez (chofer/turno, chofer/viaje, chofer/fecha)</label>
+<label class="mx-4"> <i class="fas fa-angle-right"></i>Use SOLO dos inputs a la vez (chofer/turno, chofer/viaje, chofer/fecha)</label>
 <form class="mx-4" th:action="@{consultas/consulta3}" method="get">
     <label> Id chofer</label>
     <input type="text" th:name="idChofer"/>
@@ -142,13 +142,16 @@ input[type=text] {
 </form>
 
 <h4 class="mt-4 text-center"> Consulta 4: Kmts recorridos por cada auto parametrizados por día, mes, chofer.</h4>
+<label class="mx-4"> <i class="fas fa-angle-right"></i>Use SOLO dos inputs a la vez (coche/día, coche/mes, coche/chofer)</label>
 <form class="mx-4" th:action="@{consultas/consulta4}" method="get">
     <label> Id coche</label>
     <input type="text" th:name="idCoche"/>
     <label>Por Dia</label>
-    <input type="text" th:name="dia"/>
+    <input type="datetime-local" id="dia"
+           name="dia">
     <label>Por Mes</label>
-    <input type="text" th:name="mes"/>
+    <input type="datetime-local" id="mes"
+           name="mes">
     <label>Por Chofer</label>
     <input type="text" th:name="idChofer"/>
     <input type="submit" class="buttonS btn"/>

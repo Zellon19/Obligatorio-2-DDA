@@ -105,7 +105,7 @@ public class ConsultasController {
     
     //Consulta 4
     @GetMapping({"/consulta4"})
-    public String kmRecorridosPorCochePorDiaMesChofer(@RequestParam(value="idCoche",required=true) Long idCoche, @RequestParam(value="dia",required=false) LocalDateTime dia, @RequestParam(value="mes",required=false) LocalDateTime mes, @RequestParam(value="idChofer",required=false) Long idChofer, Model modelo){
+    public String kmRecorridosPorCochePorDiaMesChofer(@RequestParam(value="idCoche",required=true) Long idCoche, @RequestParam(value="dia",required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dia, @RequestParam(value="mes",required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime mes, @RequestParam(value="idChofer",required=false) Long idChofer, Model modelo){
         List<Viaje> todosLosViajes = viajeServicio.findAllViajes();
         Float total = 0f;
         for(Viaje viaje: todosLosViajes) {
