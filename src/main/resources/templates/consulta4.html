@@ -109,17 +109,17 @@ input[type=text] {
 
 <label class="mx-4"> <i class="fas fa-angle-right"></i>Use SOLO dos inputs a la vez (coche/día, coche/mes, coche/chofer)</label>
 <form class="mx-4" th:action="@{consulta4}" method="get">
-    <label> Id coche</label>
-    <input type="text" th:name="idCoche"/>
-    <label>Por Dia</label>
+    <label class="mt-3"> Id coche</label>
+    <input type="text" th:name="idCoche"/> <br>
+    <label class="mt-3">Por Dia</label>
     <input type="datetime-local" id="dia"
-           name="dia">
-    <label>Por Mes</label>
+           name="dia"> <br>
+    <label class="mt-3">Por Mes</label>
     <input type="datetime-local" id="mes"
-           name="mes">
-    <label>Por Chofer</label>
-    <input type="text" th:name="idChofer"/>
-    <input type="submit" class="buttonS btn"/>
+           name="mes"><br>
+    <label class="mt-2">Por Chofer</label>
+    <input type="text" th:name="idChofer"/> <br>
+    <input type="submit" class="buttonS btn mt-3"/>
 </form>
 <table class="table table-hover w-50 mt-4 mx-4">
     <thead>

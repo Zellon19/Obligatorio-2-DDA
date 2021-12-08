@@ -104,24 +104,24 @@ input[type=text] {
     </div>
 </head>
 <body>
-<h2 class="text-center mt-3">Consulta 3: Lo recaudado por cada chofer parametrizado por viaje, por turno o por día</h2>
+<h2 class="text-center mt-3">Consulta 3: Lo recaudado por cada chofer por viaje, por turno o por día</h2>
 <label class="mx-4"> <i class="fas fa-angle-right"></i>Use SOLO dos inputs a la vez (chofer/turno, chofer/viaje, chofer/fecha)</label>
 <form class="mx-4" th:action="@{consulta3}" method="get">
-    <label> Id chofer</label>
-    <input type="text" th:name="idChofer"/>
-    <label> Id viaje</label>
-    <input type="text" th:name="idViaje"/>
-    <label> Id turno</label>
-    <input type="text" th:name="idTurno"/>
-    <label>por fecha</label>
+    <label class="mt-3"> Id chofer</label>
+    <input type="text" th:name="idChofer"/> <br>
+    <label class="mt-2"> Id viaje</label>
+    <input type="text" th:name="idViaje"/> <br>
+    <label class="mt-2"> Id turno</label>
+    <input type="text" th:name="idTurno"/><br>
+    <label class="mt-3">Por fecha</label>
     <input type="datetime-local" id="fecha"
-           name="fecha">
-    <input type="submit" class="buttonS btn"/>
+           name="fecha"> <br>
+    <input type="submit" class="buttonS btn mt-2"/>
 </form>
 <table class="table table-hover w-50 mt-4 mx-4">
     <thead>
     <tr>
-        <th>Recaudado por chofer por viaje o por turno</th>
+        <th>Total</th>
     </tr>
     </thead>
     <tbody>
