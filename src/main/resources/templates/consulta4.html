@@ -11,6 +11,29 @@
             crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
 
+    <style>
+
+.buttonS{
+background-color: #ecc54b;
+border-radius: 15px;
+}
+
+ .buttonS:hover {
+ background-color: #198754;
+ }
+
+.buttonS:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+</style>
     <!--  Nav bar-->
     <div class="navbar navbar-expand-md navbar-dark bg-dark" role="navigation">
         <a class="navbar-brand ml-4" href="/home">APS Taxis</a>
@@ -83,7 +106,22 @@
 <body>
 
 <h2 class="text-center mt-3">Consulta 4: Kmts recorridos por cada auto parametrizados por día, mes, chofer</h2>
-<table class="table table-hover w-50">
+
+<label class="mx-4"> <i class="fas fa-angle-right"></i>Use SOLO dos inputs a la vez (coche/día, coche/mes, coche/chofer)</label>
+<form class="mx-4" th:action="@{consulta4}" method="get">
+    <label> Id coche</label>
+    <input type="text" th:name="idCoche"/>
+    <label>Por Dia</label>
+    <input type="datetime-local" id="dia"
+           name="dia">
+    <label>Por Mes</label>
+    <input type="datetime-local" id="mes"
+           name="mes">
+    <label>Por Chofer</label>
+    <input type="text" th:name="idChofer"/>
+    <input type="submit" class="buttonS btn"/>
+</form>
+<table class="table table-hover w-50 mt-4 mx-4">
     <thead>
     <tr>
         <th>Ktm recorridos de un auto por día, mes o chofer</th>

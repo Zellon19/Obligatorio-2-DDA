@@ -39,6 +39,13 @@ public class ConsultasController {
 		return "homeConsultas.html";
 	}
 
+	//consulta1
+	@GetMapping({ "/consulta1Home"})
+	public String pagListaConsulta1(String participant, Model modelo) {
+		return "consulta1.html";
+	}
+
+
 	//Consulta 1
     @GetMapping({"/consulta1"})
     public String cochesParaUnTurnow(@RequestParam(value="id",required=true) Long id, Model modelo){
@@ -54,7 +61,12 @@ public class ConsultasController {
         modelo.addAttribute("consultas", coches);
         return "consulta1.html";
     }
-    
+
+	//consulta2
+	@GetMapping({ "/consulta2Home"})
+	public String pagListaConsulta2(String participant, Model modelo) {
+		return "consulta2.html";
+	}
     
     //Consulta 2
     @GetMapping({"/consulta2"})
@@ -78,8 +90,13 @@ public class ConsultasController {
         modelo.addAttribute("consultas", retorno);
         return "consulta2.html";
     }
-	
-    
+
+	//consulta 3
+	@GetMapping({ "/consulta3Home"})
+	public String pagListaConsulta3(String participant, Model modelo) {
+		return "consulta3.html";
+	}
+
     //Consulta 3
     @GetMapping({"/consulta3"})
     public String recaudadoPorChoferPorViajeTurnoFecha(@RequestParam(value="idChofer",required=true) Long idChofer, @RequestParam(value="idViaje",required=false) Long idViaje, @RequestParam(value="idTurno",required=false) Long idTurno, @RequestParam(value="fecha",required=false)  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fecha, Model modelo) throws ParseException{
@@ -106,8 +123,12 @@ public class ConsultasController {
         modelo.addAttribute("consultas", total);
         return "consulta3.html";
     }
-    
-    
+
+	//consulta4
+	@GetMapping({ "/consulta4Home"})
+	public String pagListaConsulta4(String participant, Model modelo) {
+		return "consulta4.html";
+	}
     
     //Consulta 4
     @GetMapping({"/consulta4"})
